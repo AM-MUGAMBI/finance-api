@@ -1,7 +1,9 @@
+# users/urls.py
+
 from django.urls import path
-from .views import RegisterView, user_list
+from .views import RegisterView, user_list_api
 
 urlpatterns = [
-    path('register/', RegisterView.as_view(), name='register'),  # registration
-    path('list/', user_list, name='user_list'),                 # protected user list
+    path('register/', RegisterView.as_view(), name='register'),
+    path('', user_list_api, name='user_list_api'),
 ]
