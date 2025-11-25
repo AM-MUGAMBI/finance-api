@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 
     # Local apps
     'users',
+    'categories',
+    'transactions',
 ]
 
 # Custom user model
@@ -59,13 +61,18 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+# -----------------------------
+# Templates + Static Folders
+# -----------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "users/templates"],  # templates folder for UI
-        'APP_DIRS': True,
+        # Project-level templates folder (all HTMLs live here)
+        'DIRS': [BASE_DIR / "config/templates"],  
+        'APP_DIRS': True,  # also search in app-level templates folders
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -101,9 +108,15 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-STATIC_URL = 'static/'
+# -----------------------------
+# Static files (CSS, JS, Images)
+# -----------------------------
+STATIC_URL = '/static/'
+
+# Added static folder to serve CSS/JS/images
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -128,3 +141,9 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 }
+
+# -----------------------------
+# Optional: login redirect
+# -----------------------------
+LOGIN_URL = '/auth/login/'  # if you use login_required decorator
+LOGIN_REDIRECT_URL = '/dashboard/'  # after login, go to dashboard
