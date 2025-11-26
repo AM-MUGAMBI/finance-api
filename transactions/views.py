@@ -7,7 +7,7 @@ from .serializers import TransactionSerializer
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def transaction_list_api(request):
-    transactions = Transaction.objects.all()
+    transactions = Transaction.objects.filter(user=request.user)
     serializer = TransactionSerializer(transactions, many=True)
     return Response(serializer.data)
 
@@ -16,6 +16,6 @@ def transaction_list_api(request):
 def create_transaction_api(request):
     serializer = TransactionSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
+        serializer.save(user=request.user)
         return Response(serializer.data)
     return Response(serializer.errors, status=400)

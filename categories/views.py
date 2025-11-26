@@ -7,7 +7,7 @@ from .serializers import CategorySerializer
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def category_list_api(request):
-    categories = Category.objects.all()
+    categories = Category.objects.filter(user=request.user)
     serializer = CategorySerializer(categories, many=True)
     return Response(serializer.data)
 
@@ -16,6 +16,6 @@ def category_list_api(request):
 def create_category_api(request):
     serializer = CategorySerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
+        serializer.save(user=request.user)
         return Response(serializer.data)
     return Response(serializer.errors, status=400)

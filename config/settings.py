@@ -42,7 +42,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "config/templates"],  # Make sure all templates are inside this folder
+        'DIRS': [BASE_DIR / "config/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,18 +76,12 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# -----------------------------
-# Static files (CSS, JS, Images)
-# -----------------------------
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]  # Ensure your static files are in this folder
-STATIC_ROOT = BASE_DIR / "staticfiles"  # For collectstatic in production
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# -----------------------------
-# REST Framework & JWT
-# -----------------------------
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -106,10 +100,6 @@ SIMPLE_JWT = {
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 }
 
-# -----------------------------
-# Login/Logout settings
-# -----------------------------
-# Prevent infinite redirect loops
-LOGIN_URL = '/login/'              # Where unauthenticated users are redirected
-LOGIN_REDIRECT_URL = '/dashboard/' # Where users go after login
-LOGOUT_REDIRECT_URL = '/login/'    # Where users go after logout
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/dashboard/'
+LOGOUT_REDIRECT_URL = '/login/'
