@@ -62,9 +62,19 @@ def home(request):
 urlpatterns = [
     path('', home),
     path('admin/', admin.site.urls),
+    
+    # User endpoints
     path('api/users/', include('users.urls')),
-    path('api/categories/', include('categories.urls')),
-    path('api/transactions/', include('transactions.urls')),
+
+    # Categories endpoints (CRUD)
+    path('api/categories/', include('categories.urls')),  # GET all, POST create
+                                                          # GET/PUT/DELETE single category
+
+    # Transactions endpoints (CRUD)
+    path('api/transactions/', include('transactions.urls')),  # GET all, POST create
+                                                               # GET/PUT/DELETE single transaction
+
+    # JWT Auth endpoints
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
