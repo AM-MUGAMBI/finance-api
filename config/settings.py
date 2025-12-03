@@ -1,11 +1,17 @@
 from pathlib import Path
 from datetime import timedelta
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-s28ba2%h7s9^&!8r4*-%q&5nnp8%2@e(^#butb9@#47ydv=x4b'
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    os.environ.get("RENDER_EXTERNAL_HOSTNAME"),
+    "finance-j5o0.onrender.com",
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
